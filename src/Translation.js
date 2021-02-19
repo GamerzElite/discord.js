@@ -26,8 +26,6 @@ module.exports = class Translation {
       return this.getByName('en', name);
     }
 
-
-
     return phrase.value;
   }
 

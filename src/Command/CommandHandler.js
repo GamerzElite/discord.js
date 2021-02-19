@@ -3,7 +3,7 @@
 const Command = require('../Command');
 
 /**
-cancerous code, dont care lol, it works. 
+Cancerous code, dont care lol, it works.
 */
 class CommandHandler {
   constructor(bot) {
@@ -12,14 +12,14 @@ class CommandHandler {
     bot.on('message', message => this.processMessage(message));
   }
 
-  isCommand(input){
+  isCommand(input) {
     return this.commands.reduce((result, command) => {
       if (!result) {
         const phrases = this.bot.phrase().getAllByName(command.trigger);
 
         const match = phrases.find(phrase => phrase.value.toLowerCase() === input);
 
-        if(match){
+        if (match) {
           result = true;
         }
       }
@@ -48,8 +48,7 @@ class CommandHandler {
   }
 
   async processMessage(message) {
-
-    if (!message.content||message.author.id==this.bot.user.id) {
+    if (!message.content || message.author.id === this.bot.user.id) {
       return Promise.resolve();
     }
 
@@ -63,7 +62,8 @@ class CommandHandler {
       mentions: message.mentions,
       language: null,
       argument: message.content,
-      member: message.member
+      member: message.member,
+      message: message,
     };
 
     const baseCommand = this.commands.reduce((result, command) => {
@@ -102,7 +102,7 @@ class CommandHandler {
 
     delete command.callback;
 
-    return await callback.call(this, command);
+    return callback.call(this, command);
   }
 
   _getChildCommand(command, cmd) {
@@ -114,7 +114,7 @@ class CommandHandler {
       if (!result) {
         const phrase = this.bot.phrase().getByName(command.language, _cmd.trigger);
 
-        if(phrase){
+        if (phrase) {
         if (phrase.toLowerCase() === cmd.argument.split(' ')[0]) {
           if (
             _cmd.commandCallbackTypes.includes(Command.getCallback.BOTH) ||
