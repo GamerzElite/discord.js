@@ -17,7 +17,7 @@ class CommandHandler {
       if (!result) {
         const phrases = this.bot.phrase().getAllByName(command.trigger);
 
-        const match = phrases.find(phrase => phrase.value.toLowerCase() === input);
+        const match = phrases.find(phrase => phrase.value.toLowerCase() === input.toLowerCase());
 
         if (match) {
           result = true;
@@ -70,7 +70,8 @@ class CommandHandler {
       if (!result) {
         const phrases = this.bot.phrase().getAllByName(command.trigger);
 
-        const match = phrases.find(phrase => phrase.value.toLowerCase() === cmd.argument.split(/[\s]+/)[0]);
+        // eslint-disable-next-line max-len
+        const match = phrases.find(phrase => phrase.value.toLowerCase() === cmd.argument.split(/[\s]+/)[0].toLowerCase());
 
         if (match) {
           if (
@@ -115,7 +116,7 @@ class CommandHandler {
         const phrase = this.bot.phrase().getByName(command.language, _cmd.trigger);
 
         if (phrase) {
-        if (phrase.toLowerCase() === cmd.argument.split(' ')[0]) {
+        if (phrase.toLowerCase() === cmd.argument.split(' ')[0].toLowerCase()) {
           if (
             _cmd.commandCallbackTypes.includes(Command.getCallback.BOTH) ||
             (cmd.isGuild && _cmd.commandCallbackTypes.includes(Command.getCallback.GUILD)) ||
